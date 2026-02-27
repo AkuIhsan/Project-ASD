@@ -1,3 +1,13 @@
+#############################################################################
+# TOPIK : TUMPUKAN DOKUMEN
+# NO KELOMPOK : 
+# ANGGOTA : 
+# - IHSAN HAMIZAN (J0403251051)
+# - MUHAMMAD RAIHAN RAMADHAN (J0403251038)
+# - HANIF MISBAH (J0403251)
+#
+#############################################################################
+
 from os import system, name
 
 # Fungsi untuk melihat isi tumpukan dokumen
@@ -54,4 +64,5 @@ def main() :
 
 lanjut = True
 while lanjut :
+
     main()
