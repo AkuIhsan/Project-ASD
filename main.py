@@ -10,9 +10,13 @@
 
 from os import system, name
 
-# Fungsi untuk melihat isi tumpukan dokumen
+
+    # Fungsi untuk melihat isi tumpukan dokumen
 def lihat() :
-    pass
+    with open("data_tumpukan.txt", "r", encoding="utf-8") as file:
+       isi_file = file.read
+    
+    print(isi_file)
 
 # Fungsi untuk menghapus dokumen dari tumpukan dokumen
 def hapus(stack) :
@@ -34,9 +38,15 @@ def perbarui() :
     pass
 
 # Fungsi untuk menambah dokumen ke tumpukan dokumen
-def tambah() :
-    
-    pass
+def tambah(stack) :
+    dokumen = input("Masukkan nama dokumen: ").strip()
+
+    if dokumen == "":
+        print("Dokumen tidak boleh kosong")
+        return
+
+    stack.append(dokumen)
+    print("Dokumen berhasil ditambahkan")
 
 
 def sorting(data): 
