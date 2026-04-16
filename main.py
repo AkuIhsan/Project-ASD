@@ -15,8 +15,19 @@ def lihat() :
     pass
 
 # Fungsi untuk menghapus dokumen dari tumpukan dokumen
-def hapus() :
-    pass
+def hapus(stack) :
+    if len(stack) == 0:
+        print("Tidak ada dokumen untuk dihapus")
+        return
+
+    print("Dokumen teratas:", stack[-1])
+    konfirmasi = input("Yakin mau hapus? (yes/no): ").lower()
+
+    if konfirmasi == "yes":
+        dokumen = stack.pop()
+        print("Dokumen", dokumen, "berhasil dihapus")
+    else:
+        print("Penghapusan dibatalkan")
 
 # Fungsi untuk memperbarui isi dokumen dari tumpukan dokumen
 def perbarui() :
