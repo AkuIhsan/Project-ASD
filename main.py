@@ -9,45 +9,70 @@
 #############################################################################
 
 from os import system, name
+from stack import Stack
 
+data = Stack()
+nama_file = "tumpukan.txt"
 
-    # Fungsi untuk melihat isi tumpukan dokumen
-def lihat() :
-    with open("data_tumpukan.txt", "r", encoding="utf-8") as file:
-       isi_file = file.read
+# Fungsi untuk membersihkan layar
+def clear() :
+    if name == 'nt':
+        c = system('cls')
+    else:
+        c = system('clear')
+
+# Fungsi untuk melihat daftar dokumen
+def daftarDokumen() :
+    for urutan,dokumen in enumerate(data.data) :
+        print(f"{urutan+1}.{dokumen['judul']}")
+
+# Fungsi untuk melihat isi tumpukan Dokumen
+def read() :
+    with open(nama_file, "r", encoding="utf-8") as file:
+        for baris in file :
+            barisBersih = baris.strip()
+            barisBersih = barisBersih.split(',')
+            dokumen = {'judul' : barisBersih[0], 'penulis' : barisBersih[1]}
+            data.push(dokumen)
     
-    print(isi_file)
+    print("Data telah berhasil dibaca")
+    
 
 # Fungsi untuk menghapus dokumen dari tumpukan dokumen
-def hapus(stack) :
-    if len(stack) == 0:
+def delete() :
+    if len(data.data) == 0:
         print("Tidak ada dokumen untuk dihapus")
         return
 
-    print("Dokumen teratas:", stack[-1])
+    item = data.peek()
+    print(f"data teratas adalah dokumen dengan judul \"{item['judul']}\" dengan penulis \"{item['penulis']}\".")
     konfirmasi = input("Yakin mau hapus? (yes/no): ").lower()
 
     if konfirmasi == "yes":
-        dokumen = stack.pop()
+        dokumen = data.pop()
         print("Dokumen", dokumen, "berhasil dihapus")
     else:
         print("Penghapusan dibatalkan")
 
-# Fungsi untuk memperbarui isi dokumen dari tumpukan dokumen
-def perbarui() :
-    pass
+# Fungsi untuk memperbarui isi dari tumpukan dokumen
+def update() :
+    with open(nama_file,"w",encoding="utf-8") as file :
+        for dokumen in data.data :
+            file.write(f"{dokumen['judul']},{dokumen['penulis']}\n")
+
+    print("Tumpukan berhasil diperbarui")
 
 # Fungsi untuk menambah dokumen ke tumpukan dokumen
-def tambah(stack) :
-    dokumen = input("Masukkan nama dokumen: ").strip()
+def create() :
+    judulDokumen = input("Masukkan nama judul dokumen : ")
+    penulisDOkumen = input("Masukkan nama penulis dokumen : ")
 
-    if dokumen == "":
-        print("Dokumen tidak boleh kosong")
-        return
+    data.push({
+        "judul" : judulDokumen,
+        "penulis" : penulisDOkumen
+    })
 
-    stack.append(dokumen)
-    print("Dokumen berhasil ditambahkan")
-
+    print("Dokumen berhasil dibuat")
 
 def sorting(data): 
     if len(data)>1:             #Syarat rekursi jika data tersisa 1 maka rekursi akan berhenti
@@ -79,8 +104,6 @@ def sorting(data):
             data[t]=righthalf[r]
             r=r+1
             t=t+1
-#data = connect to database and get data from database
-pass
 
 # Fungsi untuk mencari dokumen di dalam tumpukan dokumen
 def cari(data, item) :
@@ -97,45 +120,47 @@ def cari(data, item) :
             else:
                 first = midpoint+1
     return "Data tidak ditemukan"
-data = ['alreihan', 'reihanalex','reihanaul', 'sukaraihan', 'asep', '123asep', '983asepsukaraihan']
-sorting(data)
-pass
+
+# data = ['alreihan', 'reihanalex','reihanaul', 'sukaraihan', 'asep', '123asep', '983asepsukaraihan']
+# sorting(data)
+# pass
 
 def main() :
     global lanjut
-    print(f"{"="*10}Stadoc{"="*10}")
-    print("1.Lihat tumpukan dokumen")
-    print("2.Perbarui tumpukan dokumen")
-    print("3.Hapus tumpukan dokumen")
-    print("4.Tambah tumpukan dokumen")
-    print("5.Urutkan tumpukan dokumen")
-    print("6.Cari dokumen anda")
+    print(f"{"="*10}Isi tumpukan Dokumen{"="*10}")
+    daftarDokumen()
+    print(f"{"="*40}")
+    print("1.Melihat tumpukan dokumen")
+    print("2.Memperbarui tumpukan dokumen")
+    print("3.Menghapus dokumen")
+    print("4.Membuat dokumen")
+    print("5.Mengurutkan  dokumen")
+    print("6.Mencari dokumen anda")
     print("7.Keluar")
+    
 
     pilihan = int(input("Menu yang dipilih : "))
+    clear()
     match pilihan :
         case 1 :
-            lihat()
+            read()
         case 2 :
-            perbarui()
+            update()
         case 3 :
-            hapus()
+            delete()
         case 4 :
-            tambah()
+            create()
         case 5 :
-            sorting(data)
+            sorting()
         case 6 :    
-           inputan = input("Masukkan nama dokumen yang ingin dicari : ")
-           print(cari(data, inputan))
+           pass
         case 7 :
             lanjut = False
         case _ :
             if name == 'nt':
                 c = system('cls')
-                # return
             else:
                 c = system('clear')
-                # return
 
 lanjut = True
 while lanjut :
