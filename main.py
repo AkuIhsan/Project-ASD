@@ -31,8 +31,8 @@ def read() :
     with open(nama_file, "r", encoding="utf-8") as file:
         for baris in file :
             barisBersih = baris.strip()
-            barisBersih = barisBersih.split(',')
-            dokumen = {'judul' : barisBersih[0], 'penulis' : barisBersih[1]}
+            judul, penulis = barisBersih.split(',')
+            dokumen = {'judul' : judul, 'penulis' : penulis}
             data.push(dokumen)
     
     print("Data telah berhasil dibaca")
@@ -106,24 +106,23 @@ def sorting(data):
             t=t+1
 
 # Fungsi untuk mencari dokumen di dalam tumpukan dokumen
-def cari(data, item) :
+def searching() :
+    dokumen = data.data
+    item = input("Masukkan judul buku : ")
     first = 0
-    last = len(data)-1
+    last = len(dokumen)-1
     found = False
     while first<=last and not found:
         midpoint = (first + last)//2
-        if data[midpoint] == item:
-            return print("Dokumen ditemukan:", data[midpoint])
+        if dokumen[midpoint] == item:
+            return print("Dokumen ditemukan:", dokumen[midpoint])
         else:
-            if item < data[midpoint]:
+            if item < dokumen[midpoint]:
                 last = midpoint-1
             else:
                 first = midpoint+1
     return "Data tidak ditemukan"
 
-# data = ['alreihan', 'reihanalex','reihanaul', 'sukaraihan', 'asep', '123asep', '983asepsukaraihan']
-# sorting(data)
-# pass
 
 def main() :
     global lanjut
@@ -153,7 +152,7 @@ def main() :
         case 5 :
             sorting()
         case 6 :    
-           pass
+            searching()
         case 7 :
             lanjut = False
         case _ :
