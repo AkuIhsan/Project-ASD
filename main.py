@@ -45,7 +45,7 @@ def delete() :
         return
 
     item = data.peek()
-    print(f"data teratas adalah dokumen dengan judul \"{item['judul']}\" dengan penulis \"{item['penulis']}\".")
+    print(f"dokumen terbaru adalah dokumen dengan judul \"{item['judul']}\" dengan penulis \"{item['penulis']}\".")
     konfirmasi = input("Yakin mau hapus? (yes/no): ").lower()
 
     if konfirmasi == "yes":
@@ -119,7 +119,7 @@ def cari(data, item) :
                 last = midpoint-1
             else:
                 first = midpoint+1
-    return print("Data tidak ditemukan")
+    return print("Dokumen tidak ditemukan")
 
 
 
@@ -131,10 +131,10 @@ def main() :
     print(f"{"="*40}")
     print("1.Melihat tumpukan dokumen")
     print("2.Memperbarui tumpukan dokumen")
-    print("3.Menghapus dokumen")
+    print("3.Mengambil dokumen")
     print("4.Membuat dokumen")
     print("5.Mengurutkan  dokumen")
-    print("6.Mencari dokumen anda")
+    print("6.Mencari dokumen")
     print("7.Keluar")
     
 
